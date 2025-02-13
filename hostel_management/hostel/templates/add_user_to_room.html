@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Assign User to Room{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Assign User to Room: {{ room.room_number }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Assign User</button>
+    </form>
+</div>
+{% endblock %}

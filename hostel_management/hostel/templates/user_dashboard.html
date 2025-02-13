@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<div class="mt-4">
+    <h4>Your Details</h4>
+    <ul>
+        <li><strong>Room:</strong> {{ user.room.room_number if user.room else "N/A" }}</li>
+        <li><strong>Start Date:</strong> {{ user.start_date }}</li>
+        <li><strong>End Date:</strong> {{ user.end_date }}</li>
+        <li><strong>Rent:</strong> ₹{{ user.room_rent }}</li>
+    </ul>
+    <a href="/user-logout/" class="btn btn-danger mt-3">Vacate Room</a>
+</div>
+{% endblock %}

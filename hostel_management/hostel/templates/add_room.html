@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Room{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Add New Room</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Room</button>
+    </form>
+</div>
+{% endblock %}

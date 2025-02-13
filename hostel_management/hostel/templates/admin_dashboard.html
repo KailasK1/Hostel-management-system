@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Admin Dashboard</h2>
+
+    <!-- Room Table -->
+    <h3 class="mt-4">Room Management</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Status</th>
+                <th>Rent</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.room_number }}</td>
+                <td>
+                    {% if room.is_vacant %}
+                        Available
+                    {% else %}
+                        Occupied
+                    {% endif %}
+                </td>
+                <td>{{ room.rent }}</td>
+                <td>
+                    {% if room.is_vacant %}
+                        <a href="{% url 'add_user_to_room' room.id %}" class="btn btn-success btn-sm">Assign User</a>
+                    {% else %}
+                        <a href="{% url 'vacate_room' room.id %}" class="btn btn-danger btn-sm">Vacate Room</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- User Table -->
+    <h3 class="mt-4">Users</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Room</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>
+                    {% if user.room %}
+                        {{ user.room.room_number }}
+                    {% else %}
+                        No Room
+                    {% endif %}
+                </td>
+                <td>{{ user.start_date }}</td>
+                <td>{{ user.end_date }}</td>
+                <td>
+                    {% if user.room %}
+                        {% if user.room.is_vacant %}
+                            Vacated
+                        {% else %}
+                            Occupied
+                        {% endif %}
+                    {% else %}
+                        No Room Assigned
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add Room Button -->
+    <a href="{% url 'add_room' %}" class="btn btn-primary mt-3">Add New Room</a>
+</div>
+{% endblock %}
